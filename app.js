@@ -6,12 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10;
     let currentIndex = 0; //first div in grid
     let appleIndex = 0 
-    let currentSnak = [2,1,0] //the div in the grid being 2 (or the HEAD), and 0 being the end (TAIL, with all 1's being the body)
+    let currentSnake = [2,1,0] //the div in the grid being 2 (or the HEAD), and 0 being the end (TAIL, with all 1's being the body)
     let direction = 1;
     let score = 0;
     let speed = 0.9;
     let intervalTime = 0;
     let interval = 0;
+
+//start and restart the game
+function startGame() {
+    currentSnake.forEach(index => squares[index].classList.remove('snake'))
+    squares[appleIndex].classList.remove('apple')
+    clearInterval(interval)
+    score = 0
+    //randomApple()
+    direction = 1
+    scoreDisplay.innerText = score
+    intervalTime = 1000
+    currentSnake.forEach(index => squares[index].classList.add('snake'))
+    interval = setInterval(moveOutcomes, intervalTime)
+}
+
+
 
     //assign functions to keycodes
 function control(e) {
@@ -28,5 +44,6 @@ function control(e) {
     }
 }
 
+document.addEventListener('keyup', control)
 
 })
