@@ -1,17 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const squares = document.querySelectorAll('.grid div')
+    const gridElem = document.querySelector('.grid');
+    
     const scoreDisplay = document.querySelector('span')
     const startBtn = document.querySelector('.start')
 
-    const width = 10;
+    /**
+     * Size of the wall in number of squares
+     */
+    const width = 20;
+
     let currentIndex = 0; //first div in grid
     let appleIndex = 0
     let currentSnake = [2, 1, 0] //the div in the grid being 2 (or the HEAD), and 0 being the end (TAIL, with all 1's being the body)
     let direction = 1;
     let score = 0;
-    let speed = 0.9;
-    let intervalTime = 0;
+    let speedIncreaseRate = 0.9;
+    let initialSpeed = 0;
     let interval = 0;
+
+    for (let i=0; i <= width * width; i++) {
+        gridElem.appendChild(document.createElement('div'));
+    }
+    const squares = document.querySelectorAll('.grid div');
 
     //start and restart the game
     function startGame() {
@@ -22,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
         randomApple()
         direction = 1
         scoreDisplay.innerText = score
-        intervalTime = 300
+        initialSpeed = 300
         currentSnake = [2, 1, 0]
         currentIndex = 0
         currentSnake.forEach(index => squares[index].classList.add('snake'))
-        interval = setInterval(moveOutcomes, intervalTime)
+        interval = setInterval(moveOutcomes, initialSpeed)
     }
 
     //function that deal with ALL the ove outcomes of the snake
@@ -41,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
             squares[currentSnake[0] + direction].classList.contains('snake') //if snake goes into self
         ) {
             return clearInterval(interval) //this will clear the interval if any of the above happen
+            //create a try again button
+            //display the score
         }
         const tail = currentSnake.pop() //removes last ite of the array and shows it
         squares[tail].classList.remove('snake'); //removes class of snake from the TAIL
@@ -55,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
             score++
             scoreDisplay.textContent = score
             clearInterval(interval)
-            intervalTime = intervalTime * speed
-            interval = setInterval(moveOutcomes, intervalTime)
+            initialSpeed = initialSpeed * speedIncreaseRate
+            interval = setInterval(moveOutcomes, initialSpeed)
         }
         squares[currentSnake[0]].classList.add('snake');
     }
