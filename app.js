@@ -22,12 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         //randomApple()
         direction = 1
         scoreDisplay.innerText = score
-        intervalTime = 1000
+        intervalTime = 300
+        currentSnake = [2, 1, 0]
+        currentIndex = 0
         currentSnake.forEach(index => squares[index].classList.add('snake'))
         interval = setInterval(moveOutcomes, intervalTime)
     }
 
     //function that deal with ALL the ove outcomes of the snake
+
+    //deals with snake hitting border and snake hitting self
     function moveOutcomes() {
         if (
             (currentSnake[0] + width >= (width * width) && direction === width) || //if snake hits bottom
@@ -41,11 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const tail = currentSnake.pop() //removes last ite of the array and shows it
         squares[tail].classList.remove('snake'); //removes class of snake from the TAIL
         currentSnake.unshift(currentSnake[0] + direction) //gives direction to the head of the array
+
+        //deals with snake getting apple 
+        if (squares[currentSnake[0]].classList.contains('apple')) {
+            squares[currentSnake[0]].classList.remove('apple')
+            squares[tail].classList.add('snake')
+            currentSnake.push(tail)
+            // randomApple()
+            score++
+            scoreDisplay.textContent = score
+            clearInterval(interval)
+            intervalTime = intervalTime * speed
+            interval = setInterval(moveOutcomes, intervalTime)
+        }
+        squares[currentSnake[0]].classList.add('snake');
     }
 
-    //deals with snake hitting border and snake hitting self
 
-    //deals with snake getting apple 
 
     //assign functions to keycodes
     function control(e) {
@@ -56,12 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.keyCode === 38) {
             direction = -width //if we press the up arrow, the snake will go back 10 divs, appearing to go up
         } else if (e.keyCode === 37) {
-            direction - 1 //if we press left, the snake will go left one div
+            direction = - 1 //if we press left, the snake will go left one div
         } else if (e.keyCode === 40) {
             direction = +width //if we press down, the snake will instantly appear ten divs from where you are now 
         }
     }
 
-    document.addEventListener('keyup', control)
+    document.addEventListener('keyup', control);
+    startBtn.addEventListener('click', startGame);
 
-})
+});
