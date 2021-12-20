@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         snake.classList.remove('hide');
         startBtn.classList.add('hide');
+        restartBtn.classList.add('hide');
+        gridElem.classList.remove('blur');
         currentSnake.forEach(index => squares[index].classList.remove('snake'))
         squares[appleIndex].classList.remove('apple')
         clearInterval(interval)
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gridElem.classList.add('blur');
         restartBtn.classList.remove('hide');
         //restart btn doesn't work
-        restartBtn.addEventListener('click', startGame());
+        restartBtn.addEventListener('click', startGame);
     }
 
     //function that deal with ALL the ove outcomes of the snake
