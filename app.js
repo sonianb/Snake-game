@@ -44,7 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loseGame() {
+        gridElem.classList.add('blur');
         restartBtn.classList.remove('hide');
+        //restart btn doesn't work
+        restartBtn.addEventListener('click', startGame());
     }
 
     //function that deal with ALL the ove outcomes of the snake
