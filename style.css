@@ -1,3 +1,11 @@
+:root {
+    font-family: 'Audiowide', sans-serif;
+}
+
+.game {
+    position: relative;
+}
+
 .grid {
     width: 400px;
     height: 400px;
@@ -11,13 +19,28 @@
     height: 20px;
 }
 
+.game-btns {
+   position: absolute;
+   background-color: #3a4e93 ;
+   color: 
+   #b957ce;
+   left: 7rem;
+   top: 10rem;
+   font-size: 2rem;
+   padding: 14px 40px;
+   cursor: pointer;
+   font-family: inherit;
+}
+
 .snake {
-    background-color: rgb(41,171,135);
+    background-color: #5c58b6;
+    border-radius: 4px;
 }
 
 .apple {
-    background-color: #cc0600;
+    background-color: #b957ce;
     border-radius: 50%;
+    border: 1px solid #5994ce;
 }
 
 .hide {

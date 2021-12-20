@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loseGame() {
         restartBtn.classList.remove('hide');
-        gridElem.innterText = `Your score is ${score}!`
-
     }
 
     //function that deal with ALL the ove outcomes of the snake
