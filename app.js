@@ -86,8 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[currentSnake[0]].classList.add('snake');
     }
 
-    //snake will grow every time apple is eaten
-
 //generate new apple once apple is eaten 
 function randomApple () {
     do{
