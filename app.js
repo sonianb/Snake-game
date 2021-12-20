@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gridElem = document.querySelector('.grid');
     
-    const scoreDisplay = document.querySelector('span')
-    const startBtn = document.querySelector('.start')
+    const scoreDisplay = document.querySelector('span');
+    const startBtn = document.querySelector('.start');
+    const restartBtn = document.querySelector('.restart');
+    const snake = document.querySelector('.snake');
 
     /**
      * Size of the wall in number of squares
@@ -25,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //start and restart the game
     function startGame() {
+        snake.classList.remove('hide');
+        startBtn.classList.add('hide');
         currentSnake.forEach(index => squares[index].classList.remove('snake'))
         squares[appleIndex].classList.remove('apple')
         clearInterval(interval)
@@ -39,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         interval = setInterval(moveOutcomes, initialSpeed)
     }
 
+    function loseGame() {
+        restartBtn.classList.remove('hide');
+        gridElem.innterText = `Your score is ${score}!`
+
+    }
+
     //function that deal with ALL the ove outcomes of the snake
 
     //deals with snake hitting border and snake hitting self
@@ -50,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
             (currentSnake[0] - width < 0 && direction === -width) || //if snake hits the top
             squares[currentSnake[0] + direction].classList.contains('snake') //if snake goes into self
         ) {
+            loseGame()
             return clearInterval(interval) //this will clear the interval if any of the above happen
-            //create a try again button
-            //display the score
+            
         }
         const tail = currentSnake.pop() //removes last ite of the array and shows it
         squares[tail].classList.remove('snake'); //removes class of snake from the TAIL
@@ -72,6 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         squares[currentSnake[0]].classList.add('snake');
     }
+
+    //snake will grow every time apple is eaten
 
 //generate new apple once apple is eaten 
 function randomApple () {

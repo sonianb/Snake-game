@@ -19,3 +19,7 @@
     background-color: #cc0600;
     border-radius: 50%;
 }
+
+.hide {
+    display: none;
+}
